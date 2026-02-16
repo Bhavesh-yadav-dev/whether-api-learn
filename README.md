@@ -1,77 +1,73 @@
-Weather App
-A sleek, location-based weather application built with Flutter.
+# 🌤️ Weather App (Flutter)
 
-This project is a functional, real-time weather application that fetches data from the OpenWeatherMap API. It features a minimalist UI, automatic location detection, and dynamic Lottie animations that change based on current weather conditions.
+A sleek, **location-based weather application** built with **Flutter**.  
+This app provides **real-time weather updates** with a minimalist **“less is more”** design, powered by the **OpenWeatherMap API** and enhanced with **dynamic Lottie animations**.
 
-🚀 Features
-Real-time Data: Fetches live temperature and weather conditions using the OpenWeatherMap API.
+---
 
-Auto-Location: Automatically detects the user's city using geolocator and geocoding.
+## 🚀 Features
 
-Dynamic UI: Background animations switch between Sunny, Cloudy, Rainy, and Thunderstorm based on the API response.
+- 📡 **Real-time Data**  
+  Live temperature and weather condition fetching.
 
-Clean Design: A "less is more" aesthetic focusing on clarity and typography.
+- 📍 **Auto-Location**  
+  Intelligent device location detection via GPS.
 
-🛠 Tech Stack & Packages
-Framework: Flutter
+- 🎨 **Dynamic UI**  
+  Background animations that adapt based on actual weather:
+  - ☀️ Sunny  
+  - ☁️ Cloudy  
+  - 🌧️ Rainy  
+  - ⛈️ Thunderstorm  
 
-API: OpenWeatherMap
+- 🧼 **Clean Design**  
+  High-readability typography with a distraction-free interface.
 
-HTTP: For handling network requests.
+---
 
-Geolocator & Geocoding: To acquire device coordinates and translate them into city names.
+## 🛠️ Tech Stack & Packages
 
-Lottie: For high-quality, vector-based weather animations.
+| Category     | Technology / Package |
+|-------------|----------------------|
+| Framework   | Flutter              |
+| API         | OpenWeatherMap       |
+| Networking  | http                 |
+| Location    | geolocator, geocoding|
+| Animations  | lottie               |
 
-🏗 Project Structure
-The app follows a modular service-oriented architecture:
+---
 
-models/: Defines the Weather class to parse JSON data.
+## 🏗️ Project Structure
 
-services/: Contains WeatherService to handle API calls and location permissions.
+The app follows a **Modular Service-Oriented Architecture** for better maintainability:
 
-pages/: The UI layer where the weather data and animations are rendered.
+```plaintext
+lib/
+├── models/      # Weather data models & JSON parsing
+├── services/    # API handling & location permissions logic
+├── pages/       # UI screens (Weather Page)
+└── main.dart    # App entry point
 
-assets/: Stores the Lottie JSON files for animations.
+## ⚙️ Setup & Installation
 
-⚙️ Setup & Installation
-1. Get an API Key
-Sign up at OpenWeatherMap and generate a free API key.
+### 1️⃣ Get an API Key
+- Sign up at **OpenWeatherMap**
+- Generate your free API key
 
-2. Configure Permissions
-To use location services, you must update your native configuration:
+---
 
-Android (android/app/src/main/AndroidManifest.xml):
+### 2️⃣ Configure Native Permissions
 
-XML
+#### 🤖 Android  
+**`android/app/src/main/AndroidManifest.xml`**
+
+```xml
 <uses-permission name="android.permission.ACCESS_FINE_LOCATION" />
 <uses-permission name="android.permission.ACCESS_COARSE_LOCATION" />
-iOS (ios/Runner/Info.plist):
 
-XML
+#### 🤖 IOS
 <key>NSLocationWhenInUseUsageDescription</key>
 <string>We need your location to show local weather.</string>
-3. Add Assets
-Ensure your pubspec.yaml includes the Lottie files:
 
-YAML
-assets:
-  - assets/
-🧪 Implementation Highlights
-The app uses a Switch Statement logic to map API condition codes to the correct animation:
 
-Dart
-String getWeatherAnimation(String? mainCondition) {
-  switch (mainCondition?.toLowerCase()) {
-    case 'clouds':
-    case 'mist':
-    case 'smoke':
-      return 'assets/cloud.json';
-    case 'rain':
-      return 'assets/rain.json';
-    default:
-      return 'assets/sunny.json';
-  }
-}
-👨‍💻 Credits
-Tutorial by Mitch Koko. This project serves as a demonstration of API integration and state management in Flutter.
+
