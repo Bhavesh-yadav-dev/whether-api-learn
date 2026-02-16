@@ -12,8 +12,9 @@ class WeatherPages extends StatefulWidget {
 
 class _WeatherPagesState extends State<WeatherPages> {
   // API service
-  final WeatherServices _weatherService =
-      WeatherServices(apikey: 'enter your api key');
+  final WeatherServices _weatherService = WeatherServices(
+    apikey: 'api key ',
+  );
 
   Weather? _weather;
 
@@ -30,8 +31,7 @@ class _WeatherPagesState extends State<WeatherPages> {
       final String cityName = await _weatherService.getCurrentCity();
 
       // Get weather data
-      final Weather weather =
-          await _weatherService.getWeather(cityName);
+      final Weather weather = await _weatherService.getWeather(cityName);
 
       setState(() {
         _weather = weather;
@@ -42,25 +42,65 @@ class _WeatherPagesState extends State<WeatherPages> {
   }
   // animation
 
+  String getWeatherAnimation(String? mainCondition) {
+    if (mainCondition == null) return 'assets/sunny.json';
 
+    switch (mainCondition.toLowerCase()) {
+      case 'cloud':
+        return 'assets/animation/cloudy.json';
+      case 'shower rain':
+        return 'assets/animation/rainy.json';
+      case 'thunderstorm':
+        return 'assets/animation/thunder.json';
+      case 'clear':
+        return 'assets/animation/sunny.json';
+      default:
+        return 'assets/animation/sunny.json';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-     body: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        //city name
-       Center(child: Text(_weather?.cityName?? "loading city...")),
-     
-       //animation
-     
-      //  Lottie.asset('animation/cloudy.json'),
-        //temperature
-        Text('${_weather?.temperature.round()}°C'),
-     
-      ],
-     ),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: const Color.fromARGB(255, 179, 176, 176),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center, // Vertically centers
+
+            children: [
+              // city name
+              Text(
+                _weather?.cityName ?? "loading city...",
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                ),
+              ),
+
+              // animation
+              Lottie.asset(getWeatherAnimation(_weather?.maincondition ?? "")),
+
+              // temperature
+              Text(
+                '${_weather?.temperature.round()}°C',
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 32,
+                ),
+              ),
+
+              // Weather Condition Text
+              Text(
+                _weather?.maincondition ?? "",
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                ), // Medium bold
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
